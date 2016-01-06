@@ -20,7 +20,7 @@
   notify:
     - restart iptables
 
-  - name: Create HTTPS (443) filter rule in IPTables config
+- name: Create HTTPS (443) filter rule in IPTables config
   lineinfile: dest=/etc/sysconfig/iptables state=present insertafter="--dport 80" line="-A INPUT -p tcp -m state --state NEW -m tcp --dport 443 -j ACCEPT"
   when: use_https == 1
   notify:
