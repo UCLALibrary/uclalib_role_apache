@@ -10,7 +10,7 @@
   copy: src=ssl.conf dest={{ ssl_conf_path }}/ssl.conf owner=root group=root mode=0644 backup=yes
 
 - name: Ensure virtual host path exists within the httpd path
-  file: path=/etc/httpd/vhosts state=directory
+  file: path=/etc/httpd/vhosts.d state=directory
 
 - name: Enable HTTPD service
   service: name=httpd state=started enabled=yes
