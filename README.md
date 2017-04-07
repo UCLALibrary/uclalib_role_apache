@@ -22,6 +22,8 @@ httpd_conf_path - defines the httpd configuration file path
 
 ssl_conf_path - defines the path to the directory where the ssl.conf file is stored
 
+use_ssl - defines if the ssl.conf file should be configured to Listen on port 443
+
 ## Example Usage in a Play
 
 ```

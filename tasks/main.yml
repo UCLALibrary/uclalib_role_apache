@@ -4,10 +4,22 @@
   with_items: "{{ apache_packages }}"
 
 - name: Put our httpd.conf file in place
-  copy: src=httpd.conf dest={{ httpd_conf_path }}/httpd.conf owner=root group=root mode=0644 backup=yes
+  copy:
+    src: "httpd.conf"
+    dest: "{{ httpd_conf_path }}/httpd.conf"
+    owner: "root"
+    group: "root"
+    mode: 0644
+    backup: "yes"
 
 - name: Put our ssl.conf file in place
-  copy: src=ssl.conf dest={{ ssl_conf_path }}/ssl.conf owner=root group=root mode=0644 backup=yes
+  template:
+    src: "ssl_conf.j2"
+    dest: "{{ ssl_conf_path }}/ssl.conf"
+    owner: "root"
+    group: "root"
+    mode: 0644
+    backup: "yes"
 
 - name: Ensure virtual host path exists within the httpd path
   file: path=/etc/httpd/vhosts.d state=directory
