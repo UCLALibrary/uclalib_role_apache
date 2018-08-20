@@ -22,11 +22,11 @@ For a RHEL system, it must already be subscribed to Red Hat and base repositorie
 
 * `ssl_conf_path` - defines the path to the directory where the ssl.conf file is stored
 
-* `use_ssl` - defines if the ssl.conf file should be configured to Listen on port 443 (`yes` or `no` )
+* `use_ssl` - defines if the ssl.conf file should be configured to Listen on port 443 (`yes` or `no` - default is `yes` )
 
 ## SSL Support
 
-If you enable SSL support by setting `use_ssl` to `yes`, this only configures HTTPD to listen on ports 80 and 443. This role does not perform any certificate set-up. You'll need to do this separately in your application-specific role during the virtual host configuration.
+SSL support enabled only configures HTTPD to listen on ports 80 and 443. This role does not perform any certificate set-up. You'll need to do this separately in your application-specific role during the virtual host configuration.
 
 ## Example Usage in a Play
 
