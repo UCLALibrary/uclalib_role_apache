@@ -2,7 +2,7 @@
 # When we also provide SSL we have to listen to the
 # the HTTPS port in addition.
 #
-{% if use_ssl == "yes" %}
+{% if use_ssl_config == "yes" %}
 Listen 443 https
 {% else %}
 #Listen 443 https
