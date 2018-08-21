@@ -14,4 +14,4 @@ htttpd_vhost_path: "{{ httpd_base_path }}/vhosts.d"
 ssl_conf_path: "{{ httpd_base_path }}/conf.d"
 
 # Does this install of httpd need SSL
-use_ssl_config: yes
+use_ssl_config: "yes"
