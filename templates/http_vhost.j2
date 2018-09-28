@@ -1,0 +1,17 @@
+<VirtualHost {{ item.value.listen_ip | default('*') }}:{{ item.value.listen_port }}>
+  ServerName {{ item.key }}
+  DocumentRoot "{{ item.value.vhost_root }}"
+  CustomLog "{{ item.value.access_log }}" combined
+  ErrorLog "{{ item.value.error_log }}"
+  <Directory "{{ item.value.vhost_root }}">
+    AllowOverride "{{ item.value.allow_override | default('All') }}"
+    Options "{{ item.value.options | default('-Indexes +FollowSymLinks') }}"
+    Require all granted
+  </Directory>
+{% if item.value.extra_parameters is defined %}
+  {{ item.value.extra_parameters }}
+{% endif %}
+{% if item.value.force_https is defined %}
+  Redirect permanent / https://{{ item.key }}/
+{% endif %}
+</VirtualHost>
