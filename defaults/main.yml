@@ -9,7 +9,7 @@ httpd_base_path: /etc/httpd
 
 httpd_conf_path: "{{ httpd_base_path }}/conf"
 
-htttpd_vhost_path: "{{ httpd_base_path }}/vhosts.d"
+httpd_vhost_path: "{{ httpd_base_path }}/vhosts.d"
 
 ssl_conf_path: "{{ httpd_base_path }}/conf.d"
 

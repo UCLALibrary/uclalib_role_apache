@@ -24,6 +24,8 @@ For a RHEL system, it must already be subscribed to Red Hat and base repositorie
 
 * `use_ssl_config` - defines if the ssl.conf file should be configured to Listen on port 443 (`yes` or `no` - default is `yes` )
 
+* `vhosts` - defines information about a vhost configuration file you want to create
+
 ## SSL Support
 
 SSL support enabled only configures HTTPD to listen on ports 80 and 443. This role does not perform any certificate set-up. You'll need to do this separately in your application-specific role during the virtual host configuration.
@@ -34,6 +36,31 @@ SSL support enabled only configures HTTPD to listen on ports 80 and 443. This ro
 - name: uclalib_example_play.yml
   sudo: true
   hosts: test
+
+    roles:
+      - { role: uclalib_role_apache }
+```
+
+## Example Usage in a Play with a vhost file:
+
+```
+- name: uclalib_example_play.yml
+  sudo: true
+  hosts: test
+  vars:
+    vhosts:
+      testwebsite.local
+        vhost_root: "/opt/www/testwebsite.local"
+        access_log: "/etc/httpd/logs/testwebsite.local-access.log"
+        error_log: "/etc/httpd/logs/testwebsite.local-error.log"
+        listen_port: 80
+        force_https: True
+      testwebsite2.local
+        vhost_root: "/opt/www/testwebsite2.local"
+        access_log: "/etc/httpd/logs/testwebsite2.local-access.log"
+        error_log: "/etc/httpd/logs/testwebsite2.local-error.log"
+        listen_port: 80
+        force_https: True
 
     roles:
       - { role: uclalib_role_apache }

@@ -39,8 +39,23 @@
 
 - name: Ensure virtual host path exists within the httpd path
   file:
-    path: "{{ htttpd_vhost_path }}"
+    path: "{{ httpd_vhost_path }}"
     state: directory
+
+- name: Set up custom vhost files if defined
+  template:
+    src: "http_vhost.j2"
+    dest: "{{ httpd_vhost_path }}/{{ item.key }}.conf"
+  with_dict: "{{ vhosts }}"
+  when: vhosts is defined
+
+- name: Create up empty directorys for each directory root
+  file:
+    path: "{{ item.value.vhost_root }}" 
+    state: directory
+    mode: 0755
+  with_dict: "{{ vhosts }}"
+  when: vhosts is defined
 
 - name: Enable HTTPD service
   service:
