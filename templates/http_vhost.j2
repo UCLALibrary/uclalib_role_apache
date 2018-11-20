@@ -1,6 +1,16 @@
 <VirtualHost {{ item.value.listen_ip | default('*') }}:{{ item.value.listen_port }}>
   ServerName {{ item.key }}
+{% if item.value.aliases_list is defined %}
+{% for alias in item.value.aliases_list %}
+  ServerAlias {{ alias }}
+{% endfor %}
+{% endif %}
   DocumentRoot {{ item.value.vhost_root }}
+{% if item.value.forwardedformat is defined %}
+  SetEnvIf X-Forwarded-For "^.*\..*\..*\..*" forwarded
+  LogFormat "%{X-Forwarded-For}i %{X-Forwarded-Proto}i %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"" proxy
+  CustomLog {{ item.value.access_log }} proxy env=forwarded
+{% endif %}
   CustomLog {{ item.value.access_log }} combined
   ErrorLog {{ item.value.error_log }}
   <Directory {{ item.value.vhost_root }}>
