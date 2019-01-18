@@ -49,14 +49,6 @@
   with_dict: "{{ vhosts }}"
   when: vhosts is defined
 
-- name: Create up empty directorys for each directory root
-  file:
-    path: "{{ item.value.vhost_root }}" 
-    state: directory
-    mode: 0755
-  with_dict: "{{ vhosts }}"
-  when: vhosts is defined
-
 - name: Enable HTTPD service
   service:
     name: httpd
