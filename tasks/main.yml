@@ -2,7 +2,7 @@
 - name: Install Apache HTTPD
   yum:
     name: "{{ apache_packages }}"
-    state: present
+    state: "present"
 
 - name: Get the version of Apache HTTPD installed
   command: >
@@ -11,9 +11,9 @@
   register: httpd_version
 
 # Example for how the split function works:
-# Split 1: Apache/2.2.15
-# Split 2: 2.2.15
-# Split 3: 2 - this is the middle 2
+# Split 1: Apache/2.4.37
+# Split 2: 2.4.37
+# Split 3: 4 - this is the minor version 4
 - name: Determine HTTPD Minor Version
   set_fact:
     httpd_minor_version: "{{ httpd_version.stdout.split()[2].split('/')[1].split('.')[1] }}"
@@ -50,6 +50,5 @@
 
 - name: Enable HTTPD service
   service:
-    name: httpd
-    state: started
-    enabled: yes
+    name: "httpd"
+    enabled: "yes"
