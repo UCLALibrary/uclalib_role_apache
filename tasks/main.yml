@@ -8,6 +8,7 @@
   command: >
     /usr/sbin/httpd -v
   changed_when: false
+  check_mode: false
   register: httpd_version
 
 # Example for how the split function works:
