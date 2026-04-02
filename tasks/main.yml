@@ -49,6 +49,14 @@
   with_dict: "{{ vhosts }}"
   when: vhosts is defined
 
+- name: Enable log compression
+  ansible.builtin.lineinfile:
+    path: /etc/logrotate.d/httpd
+    state: present
+    line: "    compress"
+    insertbefore: '\s*delaycompress'
+    validate: "/usr/sbin/logrotate --debug %s"
+
 - name: Enable HTTPD service
   service:
     name: "httpd"
