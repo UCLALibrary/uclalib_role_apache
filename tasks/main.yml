@@ -10,14 +10,17 @@
   changed_when: false
   check_mode: false
   register: httpd_version
+  when: false
 
+## Minor is always 4.    -jhriv 2026-06-29
 # Example for how the split function works:
 # Split 1: Apache/2.4.37
 # Split 2: 2.4.37
 # Split 3: 4 - this is the minor version 4
 - name: Determine HTTPD Minor Version
   set_fact:
-    httpd_minor_version: "{{ httpd_version.stdout.split()[2].split('/')[1].split('.')[1] }}"
+    #httpd_minor_version: "{{ httpd_version.stdout.split()[2].split('/')[1].split('.')[1] }}"
+    httpd_minor_version: '4'
 
 - name: Put our httpd.conf file in place
   copy:
@@ -56,6 +59,7 @@
     line: "    compress"
     insertbefore: '\s*delaycompress'
     validate: "/usr/sbin/logrotate --debug %s"
+  ignore_errors: '{{ ansible_check_mode }}'
 
 - name: Enable HTTPD service
   service:
